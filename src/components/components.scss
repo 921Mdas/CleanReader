@@ -1,0 +1,212 @@
+@import "../index.scss";
+
+.top_section {
+  width: 100%;
+  height: 8vh;
+  @include flex(space-between, center, row, 0);
+  padding: 0 1em;
+}
+
+// Header
+.Header {
+  @extend .top_section;
+  background-color: var(--primary-col);
+}
+
+// navbar
+
+.navbar {
+  @extend .top_section;
+  background-color: var(--navbar);
+}
+
+// input form section
+
+.inputSections {
+  // border: solid 1px rgb(34, 223, 207);
+  position: relative;
+  @include flex(center, center, row, 1em);
+
+  .file_info {
+    @include flex(space-between, center, row, 1em);
+
+    span {
+      color: var(--primary-col);
+    }
+  }
+
+  .upload_section,
+  .result_section {
+    height: 50vh;
+    min-width: 45%;
+    max-width: 600px;
+    padding: 1em;
+    border: solid 1px rgba(255, 255, 255, 0.185);
+    margin-top: 2em;
+    border-radius: 10px;
+  }
+
+  .result_section {
+    @include flex(center, center, row, 1em);
+    position: relative;
+    // border: solid 1px red;
+  }
+
+  .info_results {
+    border: solid 1px rgb(255, 0, 0);
+    height: 3vh;
+  }
+
+  .result_container {
+    @include flex(center, center, row, 1em);
+  }
+
+  .upload_section {
+    @include flex(center, center, column, 1em);
+  }
+
+  .message_cleanup {
+    @include flex(space-between, center, row, 1em);
+    position: absolute;
+    top: 2%;
+  }
+
+  // .file_cleanupinfo {
+  //   position: absolute; c
+  // }
+
+  // .file_cleanupinfo1 {
+  //   top: 2%;
+  //   right: 40%;
+  // }
+  // .file_cleanupinfo2 {
+  //   top: 2%;
+  //   right: 12%;
+  // }
+
+  .section_title {
+    margin-bottom: 1em;
+  }
+  .alternative {
+    background-color: var(--dark);
+    width: 30px;
+    height: 30px;
+    @include flex(center, center, row, 1em);
+    border-radius: 15px;
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .uploaded {
+    background-color: var(--success) !important;
+  }
+
+  .form_submit {
+    width: 300px;
+    height: 300px;
+    @include flex(space-between, center, column, 1em);
+    border-radius: 10px;
+    background-color: var(--navbar);
+    box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+      6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+      12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+      22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+      41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+      100px 100px 80px rgba(0, 0, 0, 0.07);
+  }
+
+  .convert_btn {
+    background: none;
+    border: none;
+    font-size: 40px;
+    color: aliceblue !important;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+      6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+      12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+      22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+      41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+      100px 100px 80px rgba(0, 0, 0, 0.07);
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
+  .results_field {
+    width: 650px;
+    height: 300px;
+    resize: none;
+    padding: 1em;
+    font-size: 16px;
+    border-radius: var(--rad);
+    background-color: var(--navbar);
+    font-family: "arial";
+    overflow-y: scroll;
+    overflow-x: hidden;
+    // color: red;
+  }
+
+  .label_area {
+    border-radius: 40px;
+    width: 60%;
+    padding: 16px 10px;
+    color: var(--ltgray);
+    @include flex(space-between, center, row, 1em);
+    position: relative;
+    background-color: var(--primary-col);
+    font-weight: bold;
+    margin-bottom: 50px;
+    cursor: pointer;
+    p {
+      position: absolute;
+      width: 90%;
+      text-align: center;
+    }
+  }
+
+  .drag_area {
+    border-bottom: solid 1px var(--dark);
+    width: 100%;
+    height: 50%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    @include flex(center, center, row, 1em);
+  }
+
+  .file_field {
+    opacity: 0;
+    border: solid 1px red;
+  }
+
+  .drag_zone {
+    @include flex(center, center, row, 1em);
+    color: var(--dark);
+    font-weight: bold;
+    color: aliceblue;
+    width: 100%;
+    height: 100%;
+  }
+  .File_icon {
+    font-size: 50px;
+  }
+
+  .submitbtn {
+    padding: 10px 16px;
+    border: solid 1px var(--gray);
+    border-radius: var(--rad);
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 1em;
+  }
+}
+
+// side Effects
+
+.scaleGrow {
+  transition: all 0.5s ease-in-out;
+  background-color: var(--gray);
+}
