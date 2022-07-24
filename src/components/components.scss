@@ -10,7 +10,22 @@
 // Header
 .Header {
   @extend .top_section;
+
+  .logo {
+    font-size: 40px;
+  }
+
   background-color: var(--primary-col);
+
+  .header_section2 {
+    @include flex(center, center, row, 1em);
+    font-weight: bold;
+
+    a {
+      text-decoration: none;
+      color: aliceblue;
+    }
+  }
 }
 
 // navbar
@@ -18,6 +33,18 @@
 .navbar {
   @extend .top_section;
   background-color: var(--navbar);
+
+  .convert_icon_el {
+    font-size: 30px;
+  }
+
+  .nav_sec2 {
+    @include flex(center, center, row, 1em);
+    .nav_subsec1,
+    .nav_subsec2 {
+      @include flex(center, center, row, 1em);
+    }
+  }
 }
 
 // input form section
@@ -71,9 +98,19 @@
     top: 2%;
   }
 
-  // .file_cleanupinfo {
-  //   position: absolute; c
-  // }
+  .file_cleanupinfo {
+    span {
+      color: var(--primary-col);
+    }
+
+    .dupes_removed {
+      color: var(--error);
+    }
+  }
+
+  .action_section {
+    @include flex(center, center, column, 1em);
+  }
 
   // .file_cleanupinfo1 {
   //   top: 2%;
