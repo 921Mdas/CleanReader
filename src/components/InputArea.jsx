@@ -172,6 +172,7 @@ const InputArea = () => {
               onDrop={HandleDrop}
               onDragEnter={HandleDrag}
               onDragLeave={HandleDragLeave}
+              onDragOver={HandleDragOver}
               className={isDropping ? `drag_zone` : `drag_zone`}
             >
               <AiOutlineFileAdd

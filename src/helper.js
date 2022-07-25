@@ -39,23 +39,3 @@ export const HandleFileChange = (
     setFileDropped(true);
   }
 };
-
-// core functions
-// process items from csv to text and formatting
-
-// export const FileProcessorCSVToText = (
-//   File,
-//   updateFileResults,
-//   FileTransformer
-// ) => {
-//   const reader = new FileReader();
-
-//   reader.onload = async e => {
-//     const text = e.target.result;
-//     const data = await FileTransformer(text);
-//     NUM_OF_LINES_BEFORE = data.length;
-//     updateFileResults(data);
-//   };
-
-//   reader.readAsText(File);
-// };
