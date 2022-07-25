@@ -3,12 +3,12 @@ import "../Pages/Home.scss";
 import React from "react";
 
 // components
-import UploadForm from "../components/UploadForm";
+import MainComponent from "../components/MainComponent";
 
 function Home() {
   return (
     <div className="Main_Container">
-      <UploadForm />
+      <MainComponent />
     </div>
   );
 }
