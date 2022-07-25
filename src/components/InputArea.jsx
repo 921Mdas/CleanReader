@@ -9,13 +9,13 @@ import { RiRestartFill } from "react-icons/ri";
 import { IoCopy } from "react-icons/io5";
 
 // helper functions
-// import {
-//   HandleDrop,
-//   HandleDragOver,
-//   HandleDragLeave,
-//   HandleFileChange,
-//   // FileProcessorCSVToText,
-// } from "../helper";
+import {
+  HandleDrop,
+  // HandleDragOver,
+  // HandleDragLeave,
+  // HandleFileChange,
+  // FileProcessorCSVToText,
+} from "../helper";
 
 // lines of csv files before and after removing duplicates
 let NUM_OF_LINES_BEFORE = 0;
@@ -52,12 +52,12 @@ const InputArea = () => {
     reader.readAsText(File);
   }, []);
 
-  const HandleDrop = useCallback(e => {
-    e.preventDefault();
-    let dt = e.dataTransfer;
-    let files = dt.files;
-    FileProcessor(files[0]);
-  }, []);
+  // const HandleDrop = useCallback(e => {
+  //   e.preventDefault();
+  //   let dt = e.dataTransfer;
+  //   let files = dt.files;
+  //   FileProcessor(files[0]);
+  // }, []);
 
   const HandleDrag = useCallback(e => {
     e.preventDefault();
@@ -169,7 +169,7 @@ const InputArea = () => {
           >
             <div
               ref={drop}
-              onDrop={HandleDrop}
+              onDrop={e => HandleDrop(e, FileProcessor)}
               onDragEnter={HandleDrag}
               onDragLeave={HandleDragLeave}
               onDragOver={HandleDragOver}
