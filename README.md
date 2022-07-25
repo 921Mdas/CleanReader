@@ -1,7 +1,7 @@
 ## CLEAN READER
 
 A tool created to remove duplicated lines in a csv file and produce content as a text
-
+See the deployed version [here](https://cleanreader.netlify.app/)
 
 # Created using: ReactJS
 
