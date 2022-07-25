@@ -3,14 +3,12 @@ import "./components.scss";
 import React, { useRef, useState } from "react";
 
 import Toast from "./Util/Toast";
-import { AiOutlineFileAdd } from "react-icons/ai";
 import { GiMagicBroom } from "react-icons/gi";
 import { RiRestartFill } from "react-icons/ri";
 import { IoCopy } from "react-icons/io5";
 
 // components
 import Upload from "./Util/Upload";
-
 // helper functions
 import {
   copyContent,
@@ -29,7 +27,7 @@ const DupeRemover = () => {
   const [hasDropped, setHasDropped] = useState(false);
   const [FileInfo, setFileInfo] = useState(null);
 
-  const ResultField = useRef();
+  const resultFieldItem = useRef();
   const dropFieldArea = useRef();
   const FileUploadInput = useRef();
 
@@ -70,12 +68,13 @@ const DupeRemover = () => {
           <RiRestartFill color="aliceblue" />
         </button>
       </div>
+
       <div className="result_section">
-        <p className="results_field" ref={ResultField}>
+        <p className="results_field" ref={resultFieldItem}>
           {findDuplicates(useResults, EmailProcessor)}
         </p>
         <button
-          onClick={() => copyContent(ResultField)}
+          onClick={() => copyContent(resultFieldItem)}
           className="convert_btn copy_btn"
         >
           <IoCopy color="white" />
