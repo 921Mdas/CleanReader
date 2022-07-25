@@ -13,8 +13,8 @@ How to use:
 
 Icebox features:
 
-[ ] boolean creator
-[ ] readership analyzer
+[ ] - boolean creator
+[ ] - readership analyzer
 
 
 <img width="1413" alt="image" src="https://user-images.githubusercontent.com/66809588/180866993-5f933dfe-03f5-45fa-ab71-330fbdff1a4d.png">
