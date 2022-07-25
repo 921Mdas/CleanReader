@@ -49,7 +49,6 @@
 // input form section
 
 .inputSections {
-  // border: solid 1px rgb(34, 223, 207);
   position: relative;
   @include flex(center, center, row, 1em);
 
@@ -75,11 +74,9 @@
   .result_section {
     @include flex(center, center, row, 1em);
     position: relative;
-    // border: solid 1px red;
   }
 
   .info_results {
-    border: solid 1px rgb(255, 0, 0);
     height: 3vh;
   }
 
@@ -110,15 +107,6 @@
   .action_section {
     @include flex(center, center, column, 1em);
   }
-
-  // .file_cleanupinfo1 {
-  //   top: 2%;
-  //   right: 40%;
-  // }
-  // .file_cleanupinfo2 {
-  //   top: 2%;
-  //   right: 12%;
-  // }
 
   .section_title {
     margin-bottom: 1em;
@@ -183,7 +171,6 @@
     font-family: "arial";
     overflow-y: scroll;
     overflow-x: hidden;
-    // color: red;
   }
 
   .label_area {
@@ -240,7 +227,7 @@
   }
 }
 
-// side Effects
+// side Effects buttons
 
 .scaleGrow {
   transition: all 0.5s ease-in-out;

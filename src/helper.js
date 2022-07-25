@@ -49,7 +49,7 @@ export const HandleFileChange = (
 // copy 2 clipboard
 
 export const copyContent = element => {
-  const finalText = element.current?.innerText;
+  const finalText = element?.current?.innerText;
   navigator.clipboard.writeText(finalText);
   Toast("coped to clipboard!", "success");
 };

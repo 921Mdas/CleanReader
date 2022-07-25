@@ -1,5 +1,4 @@
 import "./index.scss";
-import "./mobile.scss";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
