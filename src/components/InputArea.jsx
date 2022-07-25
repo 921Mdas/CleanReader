@@ -1,16 +1,25 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
 import "./components.scss";
-import CustomButton from "./Button";
+
+import React, { useRef, useState, useCallback } from "react";
+
+import Toast from "./Toast";
 import { AiOutlineFileAdd } from "react-icons/ai";
-import { FaFileCsv } from "react-icons/fa";
-import { GiBroom } from "react-icons/gi";
 import { GiMagicBroom } from "react-icons/gi";
 import { RiRestartFill } from "react-icons/ri";
 import { IoCopy } from "react-icons/io5";
-import Toast from "./Toast";
 
-let before = 0;
-let after = 0;
+// helper functions
+// import {
+//   HandleDrop,
+//   HandleDragOver,
+//   HandleDragLeave,
+//   HandleFileChange,
+//   // FileProcessorCSVToText,
+// } from "../helper";
+
+// lines of csv files before and after removing duplicates
+let NUM_OF_LINES_BEFORE = 0;
+let NUM_OF_LINES_AFTER = 0;
 
 const InputArea = () => {
   const [useResults, setUseResults] = useState(null);
@@ -36,38 +45,37 @@ const InputArea = () => {
     reader.onload = async e => {
       const text = e.target.result;
       const data = await csvToArray(text);
-      before = data.length;
+      NUM_OF_LINES_BEFORE = data.length;
       setUseResults(data);
     };
 
     reader.readAsText(File);
   }, []);
 
-  const handleDrop = useCallback(e => {
+  const HandleDrop = useCallback(e => {
     e.preventDefault();
     let dt = e.dataTransfer;
     let files = dt.files;
     FileProcessor(files[0]);
   }, []);
 
-  const handleDrag = useCallback(e => {
+  const HandleDrag = useCallback(e => {
     e.preventDefault();
-
     if (e) {
       setIsDropping(true);
     }
   }, []);
 
-  const handleDragLeave = useCallback(e => {
+  const HandleDragLeave = useCallback(e => {
     e.preventDefault();
     setIsDropping(false);
   }, []);
 
-  const handleDragOver = useCallback(e => {
+  const HandleDragOver = useCallback(e => {
     e.preventDefault();
   }, []);
 
-  const handleFileChange = useCallback(e => {
+  const HandleFileChange = useCallback(e => {
     const { size, name, lastModified } = e.target?.files[0];
 
     setFileInfo({ name: name, size: size, lastMod: lastModified });
@@ -80,13 +88,14 @@ const InputArea = () => {
     }
   }, []);
 
-  const handleSubmit = useCallback(e => {
+  const handleSubmit = e => {
     e.preventDefault();
     const input = TargetField?.current?.files[0];
     FileProcessor(input);
+    // FileProcessorCSVToText(input, setUseResults, csvToArray);
     setHasDropped(false);
     Toast("duplicates removed!", "success");
-  }, []);
+  };
 
   const csvToArray = useCallback(
     (str, delimiter = ",") => {
@@ -124,7 +133,7 @@ const InputArea = () => {
       }
 
       const results = EmailProcessor(Object.keys(cache));
-      after = results.length;
+      NUM_OF_LINES_AFTER = results.length;
       finalVal = results.toString();
       return finalVal;
     },
@@ -146,8 +155,8 @@ const InputArea = () => {
     setFileInfo(null);
     setIsDropping(false);
     setHasDropped(false);
-    before = 0;
-    after = 0;
+    NUM_OF_LINES_BEFORE = 0;
+    NUM_OF_LINES_AFTER = 0;
   };
 
   return (
@@ -160,10 +169,9 @@ const InputArea = () => {
           >
             <div
               ref={drop}
-              onDrop={handleDrop}
-              onDragEnter={handleDrag}
-              onDragLeave={handleDragLeave}
-              onDragOver={handleDragOver}
+              onDrop={HandleDrop}
+              onDragEnter={HandleDrag}
+              onDragLeave={HandleDragLeave}
               className={isDropping ? `drag_zone` : `drag_zone`}
             >
               <AiOutlineFileAdd
@@ -186,7 +194,9 @@ const InputArea = () => {
               accept=".csv"
               ref={TargetField}
               className="file_field"
-              onChange={e => handleFileChange(e)}
+              onChange={e =>
+                HandleFileChange(e, setFileInfo, hasDropped, setHasDropped)
+              }
             />
           </label>
         </form>
@@ -224,14 +234,14 @@ const InputArea = () => {
 
         <div className="message_cleanup">
           <p className="file_cleanupinfo1 file_cleanupinfo">
-            <span>Before:</span> {before}
+            <span>Before:</span> {NUM_OF_LINES_BEFORE}
           </p>
           <p className="file_cleanupinfo2 file_cleanupinfo">
-            <span>After:</span> {after}
+            <span>After:</span> {NUM_OF_LINES_AFTER}
           </p>
           <p className="file_cleanupinfo3 file_cleanupinfo">
             <span className="dupes_removed">Duplicates Removed: </span>
-            {before - after}
+            {NUM_OF_LINES_BEFORE - NUM_OF_LINES_AFTER}
           </p>
         </div>
       </div>

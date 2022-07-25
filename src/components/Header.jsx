@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <div className="Header">
       <div className="header_section1">
-        <AiTwotoneBuild className="logo" />
+        <AiTwotoneBuild className="logo" /> CLEANREADER
       </div>
       <div className="header_section2">
         <a href="https://github.com/921Mdas/CleanReader">

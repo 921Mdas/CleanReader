@@ -19,7 +19,6 @@
 
   .header_section2 {
     @include flex(center, center, row, 1em);
-    font-weight: bold;
 
     a {
       text-decoration: none;

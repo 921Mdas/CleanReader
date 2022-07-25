@@ -1,10 +1,9 @@
 import "./index.scss";
 import "./mobile.scss";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
-// how to upload an excell file
-
+//Main components
 import Home from "./Pages/Home";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";

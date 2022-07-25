@@ -3,8 +3,6 @@ import "../Pages/Home.scss";
 import React from "react";
 
 // components
-import CustomButton from "../components/Button";
-import InputArea from "../components/InputArea";
 import UploadForm from "../components/UploadForm";
 
 function Home() {
