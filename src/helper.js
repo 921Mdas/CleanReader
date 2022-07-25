@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import Toast from "./components/Toast";
+import Toast from "./components/Util/Toast";
 
 //  constants
 export let NUM_OF_LINES_BEFORE = 0;
