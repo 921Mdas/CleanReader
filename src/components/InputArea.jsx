@@ -11,15 +11,23 @@ import { IoCopy } from "react-icons/io5";
 // helper functions
 import {
   HandleDrop,
-  // HandleDragOver,
-  // HandleDragLeave,
-  // HandleFileChange,
-  // FileProcessorCSVToText,
+  HandleDrag,
+  HandleDragOver,
+  HandleDragLeave,
+  HandleFileChange,
+  copyContent,
+  csvToArray,
+  findDuplicates,
+  NUM_OF_LINES_AFTER,
+  NUM_OF_LINES_BEFORE,
+  EmailProcessor,
+  FileProcessor,
+  Reset,
 } from "../helper";
 
 // lines of csv files before and after removing duplicates
-let NUM_OF_LINES_BEFORE = 0;
-let NUM_OF_LINES_AFTER = 0;
+// let NUM_OF_LINES_BEFORE = 0;
+// let NUM_OF_LINES_AFTER = 0;
 
 const InputArea = () => {
   const [useResults, setUseResults] = useState(null);
@@ -27,30 +35,30 @@ const InputArea = () => {
   const [hasDropped, setHasDropped] = useState(false);
 
   const [FileInfo, setFileInfo] = useState(null);
-  const txt = useRef();
+  const ResultField = useRef();
   const drop = useRef();
   const TargetField = useRef();
 
-  let finalVal = "";
+  // let finalVal = "";
 
-  const copyContent = useCallback(() => {
-    const finalText = txt.current?.innerText;
-    navigator.clipboard.writeText(finalText);
-    Toast("coped to clipboard!", "success");
-  }, []);
+  // const copyContent = useCallback(() => {
+  //   const finalText = ResultField.current?.innerText;
+  //   navigator.clipboard.writeText(finalText);
+  //   Toast("coped to clipboard!", "success");
+  // }, []);
 
-  const FileProcessor = useCallback(File => {
-    const reader = new FileReader();
+  // const FileProcessor = useCallback(File => {
+  //   const reader = new FileReader();
 
-    reader.onload = async e => {
-      const text = e.target.result;
-      const data = await csvToArray(text);
-      NUM_OF_LINES_BEFORE = data.length;
-      setUseResults(data);
-    };
+  //   reader.onload = async e => {
+  //     const text = e.target.result;
+  //     const data = await csvToArray(text, ",");
+  //     NUM_OF_LINES_BEFORE = data.length;
+  //     setUseResults(data);
+  //   };
 
-    reader.readAsText(File);
-  }, []);
+  //   reader.readAsText(File);
+  // }, []);
 
   // const HandleDrop = useCallback(e => {
   //   e.preventDefault();
@@ -59,105 +67,105 @@ const InputArea = () => {
   //   FileProcessor(files[0]);
   // }, []);
 
-  const HandleDrag = useCallback(e => {
-    e.preventDefault();
-    if (e) {
-      setIsDropping(true);
-    }
-  }, []);
+  // const HandleDrag = useCallback(e => {
+  //   e.preventDefault();
+  //   if (e) {
+  //     setIsDropping(true);
+  //   }
+  // }, []);
 
-  const HandleDragLeave = useCallback(e => {
-    e.preventDefault();
-    setIsDropping(false);
-  }, []);
+  // const HandleDragLeave = useCallback(e => {
+  //   e.preventDefault();
+  //   setIsDropping(false);
+  // }, []);
 
-  const HandleDragOver = useCallback(e => {
-    e.preventDefault();
-  }, []);
+  // const HandleDragOver = useCallback(e => {
+  //   e.preventDefault();
+  // }, []);
 
-  const HandleFileChange = useCallback(e => {
-    const { size, name, lastModified } = e.target?.files[0];
+  // const HandleFileChange = useCallback(e => {
+  //   const { size, name, lastModified } = e.target?.files[0];
 
-    setFileInfo({ name: name, size: size, lastMod: lastModified });
+  //   setFileInfo({ name: name, size: size, lastMod: lastModified });
 
-    if (hasDropped) {
-      setHasDropped(false);
-    }
-    if (e) {
-      setHasDropped(true);
-    }
-  }, []);
+  //   if (hasDropped) {
+  //     setHasDropped(false);
+  //   }
+  //   if (e) {
+  //     setHasDropped(true);
+  //   }
+  // }, []);
 
   const handleSubmit = e => {
     e.preventDefault();
     const input = TargetField?.current?.files[0];
-    FileProcessor(input);
+    FileProcessor(input, csvToArray, setUseResults);
     // FileProcessorCSVToText(input, setUseResults, csvToArray);
     setHasDropped(false);
     Toast("duplicates removed!", "success");
   };
 
-  const csvToArray = useCallback(
-    (str, delimiter = ",") => {
-      const headers = str?.slice(0, str.indexOf("\n")).split(delimiter);
-      const rows = str?.slice(str?.indexOf("\n") + 1).split("\n");
-      const data = [];
+  // const csvToArray = useCallback(
+  //   (str, delimiter = ",") => {
+  //     const headers = str?.slice(0, str.indexOf("\n")).split(delimiter);
+  //     const rows = str?.slice(str?.indexOf("\n") + 1).split("\n");
+  //     const data = [];
 
-      const array = rows.map(row => {
-        const values = row?.split(delimiter);
+  //     const array = rows.map(row => {
+  //       const values = row?.split(delimiter);
 
-        const obj = headers?.reduce((acc, cur, index) => {
-          acc[cur] = values[index];
-          return acc;
-        }, {});
+  //       const obj = headers?.reduce((acc, cur, index) => {
+  //         acc[cur] = values[index];
+  //         return acc;
+  //       }, {});
 
-        data.push(obj);
-      });
+  //       data.push(obj);
+  //     });
 
-      return data;
-    },
-    [useResults]
-  );
+  //     return data;
+  //   },
+  //   [useResults]
+  // );
 
-  const findDuplicates = useCallback(
-    (arr = []) => {
-      const cache = {};
-      if (arr?.length === 0 || arr?.length === undefined) return;
-      let length = arr?.length;
-      let key;
+  // const findDuplicates = useCallback(
+  //   (arr = []) => {
+  //     const cache = {};
+  //     if (arr?.length === 0 || arr?.length === undefined) return;
+  //     let length = arr?.length;
+  //     let key;
 
-      for (let i = 0; i < length; i++) {
-        key = Object.values(arr[i])[0];
-        if (key === "" || key === undefined) continue;
-        cache[key] = i;
-      }
+  //     for (let i = 0; i < length; i++) {
+  //       key = Object.values(arr[i])[0];
+  //       if (key === "" || key === undefined) continue;
+  //       cache[key] = i;
+  //     }
 
-      const results = EmailProcessor(Object.keys(cache));
-      NUM_OF_LINES_AFTER = results.length;
-      finalVal = results.toString();
-      return finalVal;
-    },
-    [useResults]
-  );
+  //     const results = EmailProcessor(Object.keys(cache));
+  //     NUM_OF_LINES_AFTER = results.length;
+  //     finalVal = results.toString();
+  //     return finalVal;
+  //   },
+  //   [useResults]
+  // );
 
-  const EmailProcessor = useCallback(
-    (arr = []) => {
-      return arr.reduce((acc, cur, idx) => {
-        acc[idx] = cur.split("\r")[0];
-        return acc;
-      }, []);
-    },
-    [useResults]
-  );
+  // const EmailProcessor = useCallback(
+  //   (arr = []) => {
+  //     return arr.reduce((acc, cur, idx) => {
+  //       acc[idx] = cur.split("\r")[0];
+  //       return acc;
+  //     }, []);
+  //   },
+  //   [useResults]
+  // );
 
-  const reset = () => {
-    setUseResults(null);
-    setFileInfo(null);
-    setIsDropping(false);
-    setHasDropped(false);
-    NUM_OF_LINES_BEFORE = 0;
-    NUM_OF_LINES_AFTER = 0;
-  };
+  // const reset = () => {
+  //   setUseResults(null);
+  //   setFileInfo(null);
+  //   setIsDropping(false);
+  //   setHasDropped(false);
+  //   NUM_OF_LINES_BEFORE = 0;
+  //   NUM_OF_LINES_AFTER = 0;
+  // };
 
   return (
     <div className="inputSections">
@@ -169,10 +177,12 @@ const InputArea = () => {
           >
             <div
               ref={drop}
-              onDrop={e => HandleDrop(e, FileProcessor)}
-              onDragEnter={HandleDrag}
-              onDragLeave={HandleDragLeave}
-              onDragOver={HandleDragOver}
+              onDrop={e =>
+                HandleDrop(e, FileProcessor, csvToArray, setUseResults)
+              }
+              onDragEnter={e => HandleDrag(e, setIsDropping)}
+              onDragLeave={e => HandleDragLeave(e, setIsDropping)}
+              onDragOver={e => HandleDragOver(e, setIsDropping)}
               className={isDropping ? `drag_zone` : `drag_zone`}
             >
               <AiOutlineFileAdd
@@ -221,15 +231,23 @@ const InputArea = () => {
         <button onClick={e => handleSubmit(e)} className="convert_btn">
           <GiMagicBroom color="aliceblue" />
         </button>
-        <button onClick={reset} className="convert_btn">
+        <button
+          onClick={() =>
+            Reset(setUseResults, setFileInfo, setIsDropping, setHasDropped)
+          }
+          className="convert_btn"
+        >
           <RiRestartFill color="aliceblue" />
         </button>
       </div>
       <div className="result_section">
-        <p className="results_field" ref={txt}>
-          {findDuplicates(useResults)}
+        <p className="results_field" ref={ResultField}>
+          {findDuplicates(useResults, EmailProcessor)}
         </p>
-        <button onClick={copyContent} className="convert_btn copy_btn">
+        <button
+          onClick={() => copyContent(ResultField)}
+          className="convert_btn copy_btn"
+        >
           <IoCopy color="white" />
         </button>
 
