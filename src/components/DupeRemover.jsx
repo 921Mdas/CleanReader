@@ -6,6 +6,7 @@ import Toast from "./Util/Toast";
 import { GiMagicBroom } from "react-icons/gi";
 import { RiRestartFill } from "react-icons/ri";
 import { IoCopy } from "react-icons/io5";
+import Api from "./Api";
 
 // components
 import Upload from "./Util/Upload";
@@ -40,60 +41,63 @@ const DupeRemover = () => {
   };
 
   return (
-    <div className="inputSections">
-      <Upload
-        isDropping={isDropping}
-        dropFieldArea={dropFieldArea}
-        setUseResults={setUseResults}
-        setIsDropping={setIsDropping}
-        hasDropped={hasDropped}
-        FileUploadInput={FileUploadInput}
-        setFileInfo={setFileInfo}
-        FileInfo={FileInfo}
-        setHasDropped={setHasDropped}
-        FileProcessor={FileProcessor}
-        csvToArray={csvToArray}
-      />
+    <>
+      <div className="inputSections" data-testid="upload_section">
+        <Upload
+          isDropping={isDropping}
+          dropFieldArea={dropFieldArea}
+          setUseResults={setUseResults}
+          setIsDropping={setIsDropping}
+          hasDropped={hasDropped}
+          FileUploadInput={FileUploadInput}
+          setFileInfo={setFileInfo}
+          FileInfo={FileInfo}
+          setHasDropped={setHasDropped}
+          FileProcessor={FileProcessor}
+          csvToArray={csvToArray}
+        />
 
-      <div className="action_section">
-        <button onClick={e => handleSubmit(e)} className="convert_btn">
-          <GiMagicBroom color="aliceblue" />
-        </button>
-        <button
-          onClick={() =>
-            Reset(setUseResults, setFileInfo, setIsDropping, setHasDropped)
-          }
-          className="convert_btn"
-        >
-          <RiRestartFill color="aliceblue" />
-        </button>
-      </div>
+        <div className="action_section">
+          <button onClick={e => handleSubmit(e)} className="convert_btn">
+            <GiMagicBroom color="aliceblue" />
+          </button>
+          <button
+            onClick={() =>
+              Reset(setUseResults, setFileInfo, setIsDropping, setHasDropped)
+            }
+            className="convert_btn"
+          >
+            <RiRestartFill color="aliceblue" />
+          </button>
+          <button
+            onClick={() => copyContent(resultFieldItem)}
+            className="convert_btn copy_btn"
+          >
+            <IoCopy color="white" />
+          </button>
+        </div>
 
-      <div className="result_section">
-        <p className="results_field" ref={resultFieldItem}>
-          {findDuplicates(useResults, EmailProcessor)}
-        </p>
-        <button
-          onClick={() => copyContent(resultFieldItem)}
-          className="convert_btn copy_btn"
-        >
-          <IoCopy color="white" />
-        </button>
+        <div className="result_section">
+          <p className="results_field" ref={resultFieldItem}>
+            {findDuplicates(useResults, EmailProcessor)}
+          </p>
 
-        <div className="message_cleanup">
-          <p className="file_cleanupinfo1 file_cleanupinfo">
-            <span>Before:</span> {NUM_OF_LINES_BEFORE}
-          </p>
-          <p className="file_cleanupinfo2 file_cleanupinfo">
-            <span>After:</span> {NUM_OF_LINES_AFTER}
-          </p>
-          <p className="file_cleanupinfo3 file_cleanupinfo">
-            <span className="dupes_removed">Duplicates Removed: </span>
-            {NUM_OF_LINES_BEFORE - NUM_OF_LINES_AFTER}
-          </p>
+          <div className="message_cleanup">
+            <p className="file_cleanupinfo1 file_cleanupinfo">
+              <span>Before:</span> {NUM_OF_LINES_BEFORE}
+            </p>
+            <p className="file_cleanupinfo2 file_cleanupinfo">
+              <span>After:</span> {NUM_OF_LINES_AFTER}
+            </p>
+            <p className="file_cleanupinfo3 file_cleanupinfo">
+              <span className="dupes_removed">Duplicates Removed: </span>
+              {NUM_OF_LINES_BEFORE - NUM_OF_LINES_AFTER}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+      <Api employees={"Sonatra"} />
+    </>
   );
 };
 

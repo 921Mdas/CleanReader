@@ -4,7 +4,7 @@ import { BsFillGearFill } from "react-icons/bs";
 
 const Navbar = () => {
   return (
-    <div className="navbar">
+    <div className="navbar" data-testid="navbar">
       <div className="nav_sec1"></div>
       <div className="nav_sec2">
         <div className="nav_subsec1">

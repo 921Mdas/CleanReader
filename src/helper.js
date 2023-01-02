@@ -8,10 +8,22 @@ export let FINAL_VAL = "";
 
 // drag and drop helper functions
 
-export const HandleDrop = (e, LinesProcessor, csvToArray, setUseResults) => {
+export const HandleDrop = (
+  e,
+  LinesProcessor,
+  csvToArray,
+  setUseResults,
+  setHasDropped,
+  setFileInfo,
+  extractFileInfo
+) => {
   e.preventDefault();
   let dt = e.dataTransfer;
   let files = dt.files;
+  setHasDropped(true);
+  const { size, name, lastModified } = files[0];
+  console.log(size, name, lastModified);
+  setFileInfo({ name: name, size: size, lastMod: lastModified });
   return LinesProcessor(files[0], csvToArray, setUseResults);
 };
 
