@@ -67,7 +67,9 @@ const Upload = ({
             className={`${hasDropped ? "uploaded" : ""} label_area `}
             data-testid="input_label"
           >
-            <p>{hasDropped ? "File uploaded" : "Upload your file"}</p>
+            <p className="upload_text">
+              {hasDropped ? "File uploaded" : "Upload your file"}
+            </p>
             <input
               type="file"
               id="file"

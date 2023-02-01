@@ -3,6 +3,7 @@ import "./components.scss";
 import React, { useRef, useState } from "react";
 
 import Toast from "./Util/Toast";
+import Diff from "./Util/Diff";
 import { GiMagicBroom } from "react-icons/gi";
 import { RiRestartFill } from "react-icons/ri";
 import { IoCopy } from "react-icons/io5";
@@ -21,12 +22,18 @@ import {
   FileProcessor,
   Reset,
 } from "../helper";
+import { useEffect } from "react";
 
 const DupeRemover = () => {
   const [useResults, setUseResults] = useState(null);
   const [isDropping, setIsDropping] = useState(false);
   const [hasDropped, setHasDropped] = useState(false);
   const [FileInfo, setFileInfo] = useState(null);
+  const [useDelimiter, setUseDelimiter] = useState(false);
+
+  useEffect(() => {
+    setUseDelimiter(false);
+  }, []);
 
   const resultFieldItem = useRef();
   const dropFieldArea = useRef();
@@ -78,9 +85,25 @@ const DupeRemover = () => {
         </div>
 
         <div className="result_section">
-          <p className="results_field" ref={resultFieldItem}>
-            {findDuplicates(useResults, EmailProcessor)}
-          </p>
+          <div className="results_field" ref={resultFieldItem}>
+            {findDuplicates(useResults, EmailProcessor) &&
+              findDuplicates(useResults, EmailProcessor).map((r, i) => (
+                <p key={i}>
+                  {r}
+                  {useDelimiter ? "," : ""}
+                </p>
+              ))}
+          </div>
+
+          <form action="" className="delimiter">
+            <label htmlFor="delimiter">Add comma delimiter</label>
+            <input
+              type={"checkbox"}
+              name="delimiter"
+              id="delimiter"
+              onChange={() => setUseDelimiter(!useDelimiter)}
+            />
+          </form>
 
           <div className="message_cleanup">
             <p className="file_cleanupinfo1 file_cleanupinfo">
@@ -97,6 +120,11 @@ const DupeRemover = () => {
         </div>
       </div>
       <Api employees={"Sonatra"} />
+
+      <Diff
+        beforeArr={useResults}
+        afterArr={findDuplicates(useResults, EmailProcessor)}
+      />
     </>
   );
 };

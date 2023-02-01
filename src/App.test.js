@@ -83,3 +83,20 @@ describe("test network and api calls", () => {
     });
   });
 });
+
+describe("testing the output sections", () => {
+  test("adding a delimiter checkbox", async () => {
+    const addDelimiter = jest.fn();
+    render(<input type={"checkbox"} onChange={addDelimiter()} />);
+    const checkbox = screen.getByLabelText(/Add comma delimiter/i);
+    expect(checkbox).toBeInTheDocument();
+    expect(checkbox).not.toBeChecked();
+    userEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
+
+    await waitFor(() => {
+      fireEvent.change(checkbox);
+      expect(addDelimiter).toHaveBeenCalledTimes(1);
+    });
+  });
+});

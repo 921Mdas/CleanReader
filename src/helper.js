@@ -89,6 +89,7 @@ export const csvToArray = (str, delimiter = ",") => {
 // find duplicates
 export const findDuplicates = (arr = [], LineCleanUp) => {
   const cache = {};
+  const dupesFound = [];
   if (arr?.length === 0 || arr?.length === undefined) return;
   let length = arr?.length;
   let key;
@@ -96,13 +97,15 @@ export const findDuplicates = (arr = [], LineCleanUp) => {
   for (let i = 0; i < length; i++) {
     key = Object.values(arr[i])[0];
     if (key === "" || key === undefined) continue;
+    if (key in cache) {
+      dupesFound.push(key);
+    }
     cache[key] = i;
   }
 
   const results = LineCleanUp(Object.keys(cache));
   NUM_OF_LINES_AFTER = results.length;
-  FINAL_VAL = results.toString();
-  return FINAL_VAL;
+  return results;
 };
 
 // line cleans extra characters

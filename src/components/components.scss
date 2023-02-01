@@ -1,4 +1,5 @@
 @import "../index.scss";
+@import "./Util/Diff.scss";
 
 .top_section {
   width: 100%;
@@ -171,6 +172,11 @@
     font-family: "arial";
     overflow-y: scroll;
     overflow-x: hidden;
+
+    p {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
 
   .label_area {
@@ -191,6 +197,15 @@
     }
   }
 
+  .delimiter {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    @include flex(center, center, row, 1em);
+  }
+
   .drag_area {
     border-bottom: solid 1px var(--dark);
     width: 100%;
@@ -203,6 +218,10 @@
   .file_field {
     opacity: 0;
     border: solid 1px red;
+  }
+
+  .upload_text {
+    pointer-events: none;
   }
 
   .drag_zone {

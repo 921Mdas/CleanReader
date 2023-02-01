@@ -1,0 +1,45 @@
+@import "../../index.scss";
+
+.difference_style {
+  width: 50%;
+  border: solid 1px var(--dkgray);
+  border-radius: var(--lg-rad);
+  height: 100%;
+  padding: 1em;
+}
+
+.all_csv_entries_existing {
+  background-color: rgba(153, 205, 50, 0.205);
+  margin-bottom: 5px;
+  padding: 2px;
+}
+
+.all_csv_entries_removed {
+  background-color: rgba(205, 50, 128, 0.171);
+  margin-bottom: 5px;
+  padding: 2px;
+}
+
+.difference_display {
+  padding: 1em;
+  width: 95%;
+  height: 50vh;
+  margin: 2em auto 0 auto;
+  border-radius: 10px;
+  border: solid 1px var(--dkgray);
+  @include flex(space-between, center, row, 1em);
+
+  .before {
+    @extend .difference_style;
+    :nth-child(1) {
+      margin-bottom: 1em;
+    }
+  }
+
+  .after {
+    @extend .difference_style;
+    :nth-child(1) {
+      margin-bottom: 1em;
+    }
+  }
+}
