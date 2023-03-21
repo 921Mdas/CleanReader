@@ -21,9 +21,10 @@ export const HandleDrop = (
   let dt = e.dataTransfer;
   let files = dt.files;
   setHasDropped(true);
+  console.log(dt);
   const { size, name, lastModified } = files[0];
-  console.log(size, name, lastModified);
   setFileInfo({ name: name, size: size, lastMod: lastModified });
+  // if statement that will either analyze or remove duplicates here
   return LinesProcessor(files[0], csvToArray, setUseResults);
 };
 
@@ -130,6 +131,8 @@ export const FileProcessor = (File, LineConverter, updateArrayState) => {
 
   reader.readAsText(File);
 };
+
+// datascience Danfo.js
 
 // reset everything
 
